@@ -1,0 +1,24 @@
+# Core dependencies
+requests>=2.31.0
+Pillow>=10.0.0
+python-dateutil>=2.8.2
+python-dotenv>=1.0.0
+
+# LLM API clients
+anthropic>=0.18.0
+openai>=1.12.0
+
+# Web search (DuckDuckGo)
+duckduckgo-search>=4.1.0
+
+# Testing dependencies
+pytest>=7.4.0
+pytest-mock>=3.12.0
+pytest-cov>=4.1.0
+pytest-asyncio>=0.21.0
+
+# Development dependencies
+black>=23.12.0
+flake8>=6.1.0
+mypy>=1.7.0
+
