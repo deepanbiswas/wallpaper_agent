@@ -20,9 +20,9 @@ LLM_PROVIDER=anthropic
 WALLPAPER_DIR=./wallpapers
 LOG_DIR=./logs
 
-# MacBook Resolution (default: 16-inch MacBook Pro)
-WALLPAPER_WIDTH=3456
-WALLPAPER_HEIGHT=2234
+# MacBook Resolution (default: 14-inch MacBook Pro)
+WALLPAPER_WIDTH=3024
+WALLPAPER_HEIGHT=1964
 
 # Theme Preferences
 PREFER_INDIAN_CULTURE=true
