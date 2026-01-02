@@ -6,27 +6,32 @@ relevant to the current week.
 """
 from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional
-from api_clients import DuckDuckGoClient, LLMClient
+from api_clients import SearchClient, DuckDuckGoClient, LLMClient
 from config import get_llm_config, load_config
 
 
 class ThemeDiscoveryAgent:
     """Agent responsible for discovering current themes."""
 
-    def __init__(self, config=None, search_client=None, llm_client=None):
+    def __init__(
+        self,
+        config=None,
+        search_client: Optional[SearchClient] = None,
+        llm_client=None
+    ):
         """
         Initialize Theme Discovery Agent.
 
         Args:
             config: Config instance (optional, loads from env if not provided)
-            search_client: DuckDuckGoClient instance (optional)
+            search_client: SearchClient instance (optional, defaults to DuckDuckGoClient)
             llm_client: LLMClient instance (optional)
         """
         if config is None:
             config = load_config()
         
         self.config = config
-        self.search_client = search_client or DuckDuckGoClient()
+        self.search_client: SearchClient = search_client or DuckDuckGoClient()
         
         # Initialize LLM client if not provided
         if llm_client is None:

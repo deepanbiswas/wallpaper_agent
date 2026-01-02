@@ -5,7 +5,7 @@ import pytest
 from unittest.mock import Mock, patch, MagicMock
 from datetime import datetime, timedelta
 
-from agents.theme_discovery import ThemeDiscoveryAgent
+from agents.theme_discovery.agent import ThemeDiscoveryAgent
 
 
 class TestThemeDiscoveryAgent:
@@ -30,7 +30,7 @@ class TestThemeDiscoveryAgent:
         assert isinstance(week_context["year"], int)
         assert isinstance(week_context["month"], int)
 
-    @patch('agents.theme_discovery.DuckDuckGoClient')
+    @patch('agents.theme_discovery.agent.DuckDuckGoClient')
     def test_search_indian_cultural_events(self, mock_client_class):
         """Test searching for Indian cultural events."""
         mock_client = MagicMock()
@@ -50,7 +50,7 @@ class TestThemeDiscoveryAgent:
         assert any("Diwali" in title for title in titles)
         assert mock_client.search_themes.call_count >= 1
 
-    @patch('agents.theme_discovery.DuckDuckGoClient')
+    @patch('agents.theme_discovery.agent.DuckDuckGoClient')
     def test_search_indian_achievements(self, mock_client_class):
         """Test searching for Indian achievements."""
         mock_client = MagicMock()
@@ -66,7 +66,7 @@ class TestThemeDiscoveryAgent:
         assert len(results) >= 0
         mock_client.search_themes.assert_called()
 
-    @patch('agents.theme_discovery.DuckDuckGoClient')
+    @patch('agents.theme_discovery.agent.DuckDuckGoClient')
     def test_search_global_themes(self, mock_client_class):
         """Test searching for global popular themes."""
         mock_client = MagicMock()
@@ -82,8 +82,8 @@ class TestThemeDiscoveryAgent:
         assert len(results) >= 0
         mock_client.search_themes.assert_called()
 
-    @patch('agents.theme_discovery.DuckDuckGoClient')
-    @patch('agents.theme_discovery.LLMClient')
+    @patch('agents.theme_discovery.agent.DuckDuckGoClient')
+    @patch('agents.theme_discovery.agent.LLMClient')
     def test_discover_themes_full_workflow(self, mock_llm_class, mock_ddg_class):
         """Test full theme discovery workflow."""
         # Mock DuckDuckGo client
@@ -110,7 +110,7 @@ class TestThemeDiscoveryAgent:
             assert "name" in theme or "title" in theme
             assert "type" in theme or "category" in theme
 
-    @patch('agents.theme_discovery.DuckDuckGoClient')
+    @patch('agents.theme_discovery.agent.DuckDuckGoClient')
     def test_discover_themes_handles_empty_results(self, mock_client_class):
         """Test handling of empty search results."""
         mock_client = MagicMock()
@@ -123,7 +123,7 @@ class TestThemeDiscoveryAgent:
         assert isinstance(themes, list)
         # Should return empty list or default themes
 
-    @patch('agents.theme_discovery.DuckDuckGoClient')
+    @patch('agents.theme_discovery.agent.DuckDuckGoClient')
     def test_discover_themes_handles_search_errors(self, mock_client_class):
         """Test error handling when search fails."""
         mock_client = MagicMock()
@@ -165,7 +165,7 @@ class TestThemeDiscoveryAgent:
         assert isinstance(keywords, list)
         assert len(keywords) > 0
 
-    @patch('agents.theme_discovery.DuckDuckGoClient')
+    @patch('agents.theme_discovery.agent.DuckDuckGoClient')
     def test_search_with_week_context(self, mock_client_class):
         """Test that searches include week context."""
         mock_client = MagicMock()

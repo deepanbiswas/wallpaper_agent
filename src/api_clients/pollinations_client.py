@@ -3,9 +3,10 @@ Pollinations.ai image generation client for Wallpaper Agent.
 """
 import requests
 from typing import Optional
+from api_clients.interfaces import ImageGenerationClient
 
 
-class PollinationsClient:
+class PollinationsClient(ImageGenerationClient):
     """Client for Pollinations.ai image generation API."""
 
     def __init__(self):

@@ -3,9 +3,10 @@ DuckDuckGo search client for Wallpaper Agent.
 """
 from typing import List, Dict, Any
 from duckduckgo_search import DDGS
+from api_clients.interfaces import SearchClient
 
 
-class DuckDuckGoClient:
+class DuckDuckGoClient(SearchClient):
     """Client for DuckDuckGo search API."""
 
     def __init__(self):

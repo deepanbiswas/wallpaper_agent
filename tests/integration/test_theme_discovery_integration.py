@@ -5,7 +5,7 @@ These tests call the actual DuckDuckGo API to verify real-world functionality.
 Marked with @pytest.mark.integration and @pytest.mark.api for selective running.
 """
 import pytest
-from agents.theme_discovery import ThemeDiscoveryAgent
+from agents.theme_discovery.agent import ThemeDiscoveryAgent
 
 
 @pytest.mark.integration

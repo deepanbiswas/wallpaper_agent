@@ -69,7 +69,14 @@ This project uses **Spec-Driven Development (SDD)** combined with **Test-Driven 
      - Fully swappable ranking strategies and stages
      - 32 unit tests + 7 integration tests passing
      - 91-98% coverage per component
-   - ⏳ Wallpaper Generation Agent
+   - ✅ Wallpaper Generation Agent (Completed)
+     - Generates wallpapers using Pollinations.ai (free image generation)
+     - Builds prompts from theme and style guidelines
+     - Processes images (resize, dark theme enforcement)
+     - Saves wallpapers to configured directory
+     - WallpaperRequest and WallpaperResult domain models
+     - 12 unit tests + 4 integration tests passing
+     - 93% code coverage for agent
    - ⏳ Wallpaper Application Agent
 
 7. ⏳ **Step 7: Integration & Orchestration**
