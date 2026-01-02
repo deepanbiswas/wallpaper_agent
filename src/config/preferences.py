@@ -41,6 +41,7 @@ class Config:
         self.anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
         self.openai_api_key = os.getenv("OPENAI_API_KEY")
         self.llm_provider = os.getenv("LLM_PROVIDER", "anthropic").lower()
+        self.llm_model = os.getenv("LLM_MODEL")  # Optional, uses client default if not set
 
         # Ensure directories exist
         self._ensure_directories()
@@ -103,6 +104,7 @@ def get_llm_config(config: Config) -> Dict:
         "provider": config.llm_provider,
         "anthropic_api_key": config.anthropic_api_key,
         "openai_api_key": config.openai_api_key,
+        "model": config.llm_model,  # Optional model override
     }
 
 

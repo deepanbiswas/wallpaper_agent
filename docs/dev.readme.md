@@ -36,10 +36,23 @@ This project uses **Spec-Driven Development (SDD)** combined with **Test-Driven 
    - ✅ Comprehensive test suite (10 tests, 97% coverage)
    - ✅ All tests passing following TDD approach
 
-5. ⏳ **Step 5: Core Utilities (TDD)**
-   - API client utilities
-   - Image processing utilities
-   - Logging system
+5. ✅ **Step 5: Core Utilities (TDD)** (Completed)
+   - ✅ API Client Utilities (separate folder under `src/api_clients/`):
+     - `api_clients/duckduckgo_client.py` - DuckDuckGoClient for web search (4 tests)
+     - `api_clients/pollinations_client.py` - PollinationsClient for image generation (5 tests)
+     - `api_clients/llm_client.py` - LLMClient for Anthropic/OpenAI (7 tests, configurable model)
+   - ✅ LLM model is configurable via constructor parameter or LLM_MODEL environment variable
+   - ✅ Image Processing Utilities:
+     - Image resizing with aspect ratio support (2 tests)
+     - Dark theme enforcement (2 tests)
+     - Wallpaper saving and processing pipeline (4 tests)
+   - ✅ Logging System:
+     - Centralized logging setup with file rotation (6 tests)
+     - Logger instances for modules
+   - ✅ All 42 tests passing (42 total: 11 config + 31 utilities)
+   - ✅ 91% overall code coverage (83-97% per module)
+   - ✅ Refactored API clients into separate files in `api_clients/` folder
+   - ✅ LLM model is configurable via constructor parameter or LLM_MODEL env variable
 
 6. ⏳ **Step 6: Agent Implementation (TDD)**
    - Theme Discovery Agent

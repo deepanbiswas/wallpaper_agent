@@ -11,6 +11,10 @@ OPENAI_API_KEY=your_openai_api_key_here
 # LLM Provider Preference (anthropic or openai)
 LLM_PROVIDER=anthropic
 
+# LLM Model (optional - uses provider default if not specified)
+# LLM_MODEL=claude-3-5-sonnet-20241022  # For Anthropic
+# LLM_MODEL=gpt-4  # For OpenAI
+
 # Web Search API (optional - DuckDuckGo doesn't need a key)
 # SERPAPI_KEY=your_serpapi_key_here  # Only if using SerpAPI instead of DuckDuckGo
 

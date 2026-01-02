@@ -102,9 +102,22 @@ LLM_PROVIDER=anthropic
         assert "provider" in llm_config
         assert "anthropic_api_key" in llm_config
         assert "openai_api_key" in llm_config
+        assert "model" in llm_config
         assert llm_config["provider"] == "anthropic"
         assert llm_config["anthropic_api_key"] == "test_anthropic_key"
         assert llm_config["openai_api_key"] == "test_openai_key"
+        assert llm_config["model"] is None  # Not set in env
+
+    def test_get_llm_config_with_model(self, monkeypatch):
+        """Test getting LLM configuration with custom model."""
+        monkeypatch.setenv("ANTHROPIC_API_KEY", "test_key")
+        monkeypatch.setenv("LLM_PROVIDER", "anthropic")
+        monkeypatch.setenv("LLM_MODEL", "claude-3-opus-20240229")
+
+        config = Config()
+        llm_config = get_llm_config(config)
+
+        assert llm_config["model"] == "claude-3-opus-20240229"
 
     def test_get_llm_config_default_provider(self, monkeypatch):
         """Test LLM config defaults to anthropic if not specified."""

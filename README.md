@@ -103,6 +103,7 @@ wallpaper_agent/
 │   └── tasks.md
 ├── src/                     # Source code
 │   ├── agents/             # Agent implementations
+│   ├── api_clients/        # API client implementations
 │   ├── config/             # Configuration
 │   ├── utils/              # Utility functions
 │   └── main.py             # Main orchestrator
