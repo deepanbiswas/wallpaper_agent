@@ -54,11 +54,23 @@ This project uses **Spec-Driven Development (SDD)** combined with **Test-Driven 
    - ✅ Refactored API clients into separate files in `api_clients/` folder
    - ✅ LLM model is configurable via constructor parameter or LLM_MODEL env variable
 
-6. ⏳ **Step 6: Agent Implementation (TDD)**
-   - Theme Discovery Agent
-   - Theme Selection Agent
-   - Wallpaper Generation Agent
-   - Wallpaper Application Agent
+6. 🔄 **Step 6: Agent Implementation (TDD)** (In Progress)
+   - ✅ Theme Discovery Agent (Completed)
+     - Searches for Indian cultural events, achievements, and global themes
+     - Uses DuckDuckGo search API
+     - Formats and deduplicates themes
+     - 11 tests passing, 96% coverage
+   - ✅ Theme Selection Agent (Completed)
+     - Multi-stage ranking using Strategy + Chain of Responsibility patterns
+     - Initial rule-based scoring (respects user preferences)
+     - LLM-based intelligent ranking (optional)
+     - Score normalization and combination
+     - Generates detailed style guidelines for wallpaper generation
+     - Fully swappable ranking strategies and stages
+     - 32 unit tests + 7 integration tests passing
+     - 91-98% coverage per component
+   - ⏳ Wallpaper Generation Agent
+   - ⏳ Wallpaper Application Agent
 
 7. ⏳ **Step 7: Integration & Orchestration**
    - Main orchestrator
