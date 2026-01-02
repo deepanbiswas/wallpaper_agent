@@ -77,7 +77,17 @@ This project uses **Spec-Driven Development (SDD)** combined with **Test-Driven 
      - WallpaperRequest and WallpaperResult domain models
      - 12 unit tests + 4 integration tests passing
      - 93% code coverage for agent
-   - ⏳ Wallpaper Application Agent
+   - ✅ Wallpaper Application Agent (Completed)
+     - Applies wallpapers to macOS desktop using osascript
+     - Detects virtual desktop count (Spaces)
+     - Auto-selects desktop: 2nd desktop if 2 exist, 1st if only 1
+     - Supports explicit desktop selection
+     - Platform detection (macOS/Windows)
+     - Windows implementation placeholder (not yet implemented)
+     - ApplicationRequest and ApplicationResult domain models
+     - **Refactored**: macOS-specific code moved to `MacOSWallpaperApplier` class
+     - 14 unit tests (agent) + 9 unit tests (applier) + 4 integration tests passing
+     - 94% code coverage for MacOSWallpaperApplier, 90% for agent
 
 7. ⏳ **Step 7: Integration & Orchestration**
    - Main orchestrator
