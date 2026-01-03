@@ -89,10 +89,29 @@ This project uses **Spec-Driven Development (SDD)** combined with **Test-Driven 
      - 14 unit tests (agent) + 9 unit tests (applier) + 4 integration tests passing
      - 94% code coverage for MacOSWallpaperApplier, 90% for agent
 
-7. ⏳ **Step 7: Integration & Orchestration**
-   - Main orchestrator
-   - Error handling
-   - End-to-end testing
+7. ✅ **Step 7: Integration & Orchestration** (Completed)
+   - ✅ Main Orchestrator (Completed)
+     - Coordinates all 4 agents in sequence
+     - Handles workflow: Discovery → Selection → Generation → Application
+     - Error handling at each step with appropriate status codes
+     - Partial success handling (wallpaper generated but not applied)
+     - Comprehensive logging throughout workflow
+     - OrchestrationResult and OrchestrationStatus domain models
+     - 9 unit tests passing
+     - 93% code coverage for orchestrator
+   - ✅ Error Handling & Retry Logic (Completed)
+     - Exponential backoff retry strategy
+     - Configurable max retries (default: 3) and retry delay (default: 1.0s)
+     - Retry logic for all workflow steps (discovery, selection, generation, application)
+     - Exception handling with detailed error messages
+     - 10 unit tests for retry and error handling
+     - 91% code coverage for orchestrator with retry logic
+   - ✅ End-to-End Testing (Completed)
+     - Complete workflow tests with mocked agents
+     - Tests for success, retry, partial success, and failure scenarios
+     - Exception handling verification
+     - 5 e2e tests passing
+     - All tests marked with `@pytest.mark.e2e`
 
 8. ⏳ **Step 8: Automation**
    - Cron job setup
@@ -129,4 +148,70 @@ This project uses **Spec-Driven Development (SDD)** combined with **Test-Driven 
 - **SDD**: Follow specifications in `spec/` directory
 - **Clean Code**: Follow PEP 8, use type hints
 - **Documentation**: Update this file as you progress
+
+## Testing Strategy
+
+This project uses a comprehensive testing strategy with multiple test levels:
+
+### Test Levels
+
+1. **Unit Tests** (`tests/unit/`)
+   - Test individual components in isolation
+   - Use mocks to isolate dependencies
+   - Fast execution (< 1 second per test)
+   - High code coverage target: > 90%
+   - Examples: Agent logic, utility functions, domain models
+
+2. **Integration Tests** (`tests/integration/`)
+   - Test component interactions with real external services
+   - May call actual APIs (DuckDuckGo, Pollinations.ai, LLM APIs)
+   - Slower execution (may take seconds per test)
+   - Marked with `@pytest.mark.integration`
+   - Examples: Agent with real API clients, full agent workflows
+
+3. **End-to-End (E2E) Tests** (`tests/e2e/`)
+   - Test complete workflows from start to finish
+   - Use mocked agents to test orchestrator logic
+   - Verify full system integration
+   - Marked with `@pytest.mark.e2e`
+   - Examples: Complete orchestrator workflow, error scenarios
+
+### Running Tests
+
+```bash
+# Run all tests
+pytest
+
+# Run only unit tests
+pytest tests/unit/
+
+# Run only integration tests
+pytest -m integration
+
+# Run only e2e tests
+pytest -m e2e
+
+# Run with coverage
+pytest --cov=src --cov-report=html
+```
+
+### Test Organization
+
+- **Unit tests**: One test file per source file (e.g., `test_orchestrator.py` for `orchestrator/main.py`)
+- **Integration tests**: One test file per agent or major component
+- **E2E tests**: One test file per major workflow scenario
+
+### Test Coverage Goals
+
+- **Overall**: > 80% code coverage
+- **Core components**: > 90% coverage (agents, orchestrator, utilities)
+- **API clients**: > 70% coverage (external dependencies)
+
+### Error Handling & Retry Logic
+
+- **Retry Strategy**: Exponential backoff with configurable max retries
+- **Default Settings**: 3 retries, 1.0s initial delay
+- **Retryable Operations**: Theme discovery, selection, generation, application
+- **Error Handling**: All exceptions caught and logged with context
+- **Status Codes**: SUCCESS, FAILED, PARTIAL (for partial success scenarios)
 
