@@ -85,9 +85,9 @@ This document breaks down the implementation into actionable tasks following TDD
   - Implement agent
   - Verify tests pass
 
-### Phase 5: Integration & Orchestration
+### Phase 5: Integration & Orchestration ✅
 
-- [ ] **Task 5.1**: Main Orchestrator (TDD)
+- [x] **Task 5.1**: Main Orchestrator (TDD)
   - Write integration tests for:
     - Full workflow execution (mocked agents)
     - Error handling and fallbacks
@@ -95,13 +95,13 @@ This document breaks down the implementation into actionable tasks following TDD
   - Implement orchestrator
   - Verify tests pass
 
-- [ ] **Task 5.2**: Error Handling & Edge Cases
-  - Add retry logic for API calls
+- [x] **Task 5.2**: Error Handling & Edge Cases
+  - Add retry logic for API calls (exponential backoff)
   - Add fallback options for each agent
   - Add validation for each step
   - Handle API failures gracefully
 
-- [ ] **Task 5.3**: End-to-End Testing
+- [x] **Task 5.3**: End-to-End Testing
   - Write E2E tests with real APIs (optional)
   - Test full workflow with mocks
   - Verify all specifications are met
@@ -118,6 +118,34 @@ This document breaks down the implementation into actionable tasks following TDD
   - Document API key setup
   - Add troubleshooting guide
   - Update dev.readme.md with final status
+
+### Phase 7: LLM Enhancements & Evaluation Framework
+
+- [x] **Task 7.1**: LLM Enhancement to Discovery Agent
+  - Implement LLM-based theme extraction and cleaning
+  - Add relevance filtering
+  - Add metadata enrichment (relevance, significance, visual_appeal, etc.)
+  - Fallback to simple extraction when LLM unavailable
+  - Write tests for LLM extraction
+  - Verify tests pass
+
+- [ ] **Task 7.2**: Evaluation Framework (TDD)
+  - Write evaluation metrics for each agent
+  - Implement evaluation runners
+  - Create baseline metrics
+  - Write tests for evaluations
+  - Verify tests pass
+
+- [ ] **Task 7.3**: Quality Monitoring
+  - Set up evaluation tracking
+  - Create quality dashboards (optional)
+  - Implement regression detection
+  - Add quality alerts (optional)
+
+- [ ] **Task 7.4**: Enhanced Ranking Strategy (Optional)
+  - Add DiscoveryMetadataStage to use discovery metadata
+  - Enhance existing stages with metadata
+  - Update ranking pipeline if needed
 
 ## Implementation Order
 

@@ -54,12 +54,17 @@ This project uses **Spec-Driven Development (SDD)** combined with **Test-Driven 
    - ✅ Refactored API clients into separate files in `api_clients/` folder
    - ✅ LLM model is configurable via constructor parameter or LLM_MODEL env variable
 
-6. 🔄 **Step 6: Agent Implementation (TDD)** (In Progress)
+6. ✅ **Step 6: Agent Implementation (TDD)** (Completed)
    - ✅ Theme Discovery Agent (Completed)
      - Searches for Indian cultural events, achievements, and global themes
      - Uses DuckDuckGo search API
      - Formats and deduplicates themes
-     - 11 tests passing, 96% coverage
+     - **LLM Enhancement**: LLM-based theme extraction and cleaning (primary use)
+       - Extracts clean theme names and descriptions from raw search results
+       - Relevance filtering (default: >= 50) to filter low-relevance themes
+       - Metadata enrichment: adds relevance, significance, visual_appeal, visual_elements, colors
+       - Fallback to simple extraction when LLM unavailable or fails
+     - 18 tests passing (11 original + 7 LLM extraction), 97% coverage
    - ✅ Theme Selection Agent (Completed)
      - Multi-stage ranking using Strategy + Chain of Responsibility patterns
      - Initial rule-based scoring (respects user preferences)
@@ -113,7 +118,24 @@ This project uses **Spec-Driven Development (SDD)** combined with **Test-Driven 
      - 5 e2e tests passing
      - All tests marked with `@pytest.mark.e2e`
 
-8. ⏳ **Step 8: Automation**
+8. ✅ **Step 8: Evaluation Framework** (Completed)
+   - ✅ Evaluation Framework (Completed)
+     - Created `AgentEvaluator` class with evaluation methods for each agent
+     - Implemented evaluation metrics (EvaluationResult, EvaluationMetrics)
+     - Metrics for Discovery: Relevance, Quality, Deduplication, Coverage
+     - Metrics for Selection: Selection Accuracy, Preference Adherence, Style Quality
+     - Metrics for Generation: Image Quality, Theme Adherence, Dark Theme Compliance
+     - Metrics for Application: Application Success, Desktop Selection Correctness
+     - LLM-based evaluations where applicable (relevance, selection accuracy)
+     - Rule-based fallbacks when LLM unavailable
+     - 10 unit tests for evaluation framework
+     - 71% code coverage for evaluator
+   - ✅ Spec Updates (Completed)
+     - Created `spec/evaluations.md` with detailed evaluation metrics
+     - Updated `spec/technical-plan.md` with LLM enhancements
+     - Updated `spec/tasks.md` with Phase 7 tasks
+
+9. ⏳ **Step 9: Automation**
    - Cron job setup
    - Final documentation
 
@@ -214,4 +236,44 @@ pytest --cov=src --cov-report=html
 - **Retryable Operations**: Theme discovery, selection, generation, application
 - **Error Handling**: All exceptions caught and logged with context
 - **Status Codes**: SUCCESS, FAILED, PARTIAL (for partial success scenarios)
+
+## Evaluation Framework
+
+### Overview
+- **Location**: `src/evaluations/`
+- **Purpose**: Monitor and maintain agent output quality
+- **Components**:
+  - `evaluator.py`: `AgentEvaluator` class with evaluation methods
+  - `metrics.py`: `EvaluationResult` and `EvaluationMetrics` dataclasses
+
+### Usage
+```python
+from evaluations import AgentEvaluator
+
+evaluator = AgentEvaluator()
+
+# Evaluate discovery agent
+result = evaluator.evaluate_discovery_agent(themes, week_context)
+
+# Evaluate selection agent
+result = evaluator.evaluate_selection_agent(selected_theme, all_themes)
+
+# Evaluate generation agent
+result = evaluator.evaluate_generation_agent(wallpaper_path, theme)
+
+# Evaluate application agent
+result = evaluator.evaluate_application_agent(success, desktop_index, desktop_count)
+```
+
+### Metrics
+- **Discovery Agent**: Relevance (target: >80), Quality (target: >85), Deduplication (target: >90), Coverage (target: >70)
+- **Selection Agent**: Selection Accuracy (target: >85), Preference Adherence (target: >90), Style Quality (target: >85)
+- **Generation Agent**: Image Quality (target: >80), Theme Adherence (target: >85), Dark Theme Compliance (target: >90)
+- **Application Agent**: Application Success (target: >95), Desktop Selection Correctness (target: >98)
+
+### Quality Thresholds
+- **Critical**: Fail if below critical thresholds (e.g., Relevance < 60, Selection Accuracy < 70)
+- **Warning**: Alert if below warning thresholds (e.g., Quality < 75, Dark Theme < 80)
+
+See `spec/evaluations.md` for detailed metrics, thresholds, and evaluation methods.
 

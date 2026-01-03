@@ -20,14 +20,21 @@ Theme Discovery → Theme Selection → Wallpaper Generation → Wallpaper Appli
 - Search for Indian achievements (ISRO, etc.)
 - Search for global popular themes
 - Extract and structure candidate themes
+- **LLM Enhancement**: Use LLM for theme extraction and cleaning (primary use)
 
 **Input**: Current date/time
-**Output**: List of candidate themes with descriptions
+**Output**: List of candidate themes with descriptions and metadata
+
+**LLM Enhancements** (when LLM client available):
+- **Theme Extraction & Cleaning**: Extracts clean theme names and descriptions from raw search results
+- **Relevance Filtering**: Filters themes by relevance score (default: >= 50)
+- **Metadata Enrichment**: Adds metadata (relevance, significance, visual_appeal, visual_elements, colors)
+- **Fallback**: Uses simple extraction if LLM unavailable or fails
 
 **Tools**:
 - DuckDuckGo Search API (free, no key required)
 - Date/time utilities (python-dateutil)
-- LLM API (for extracting themes from search results)
+- LLM API (for extracting and cleaning themes from search results)
 
 ### 2. Theme Selection Agent
 
@@ -36,15 +43,24 @@ Theme Discovery → Theme Selection → Wallpaper Generation → Wallpaper Appli
 **Responsibilities**:
 - Receive candidate themes from Discovery Agent
 - Apply preference rules (Indian culture priority)
-- Rank themes intelligently
+- Rank themes intelligently using multi-stage pipeline
 - Select top theme
 - Generate detailed theme description for wallpaper generation
+- **Optional Enhancement**: Use discovery metadata (relevance, significance) in ranking
 
-**Input**: List of candidate themes
+**Input**: List of candidate themes (may include metadata from LLM-enhanced discovery)
 **Output**: Selected theme with detailed description and style guidelines
 
+**Ranking Strategy**:
+- **InitialScoringStage**: Rule-based scoring (theme type + preferences)
+- **LLMRankingStage**: LLM-based intelligent ranking (optional, if LLM available)
+- **NormalizationStage**: Normalize scores to 0-1 range
+- **CombinedScoringStage**: Combine base_score (40%) + llm_score (60%)
+- **FinalSortStage**: Sort by final_score descending
+- **Optional**: DiscoveryMetadataStage (uses discovery metadata if available)
+
 **Tools**:
-- LLM API (Anthropic Claude or OpenAI) for intelligent ranking
+- LLM API (Anthropic Claude or OpenAI) for intelligent ranking and style guidelines
 - Preference rules engine (configurable)
 
 ### 3. Wallpaper Generation Agent
@@ -178,6 +194,17 @@ wallpaper_agent/
 - Errors logged with stack traces
 - Success/failure status logged
 - Log rotation configured
+
+## Evaluation Framework
+
+- **Purpose**: Monitor and maintain agent output quality
+- **Implementation**: `AgentEvaluator` class with metrics for each agent
+- **Metrics**: Relevance, quality, accuracy, adherence scores (0-100)
+- **Frequency**: Run after each workflow or in CI/CD pipeline
+- **Storage**: JSON/CSV format for trend tracking
+- **Alerting**: Warn on quality degradation, fail on critical thresholds
+
+See `spec/evaluations.md` for detailed evaluation metrics and criteria.
 
 ## Security Considerations
 
